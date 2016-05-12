@@ -1,5 +1,3 @@
-# [WaderTG](https://telegram.me/WaderTG)
-
 # Features
 
 * **A powerful antispam system with custom sensitivity for each group**
@@ -226,8 +224,8 @@ Each higher status inherits the privileges of the lower status.
 sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev lua-socket lua-sec lua-expat libevent-dev make unzip git redis-server autoconf g++ libjansson-dev libpython-dev expat libexpat1-dev
 
 cd $HOME
-git clone https://github.com/groupforspeed/WaderTG.git
-cd WaderTG
+git clone https://github.com/erfan1292/sezar.git
+cd sezar
 chmod +x launchfix2.sh
 chmod +x launch.sh
 chmod +x autolaunch.sh
@@ -238,7 +236,7 @@ cd bin
 ./luarocks-5.2 install lub
 ./luarocks-5.2 install luaexpat
 cd $HOME
-cd WaderTG
+cd sezar
 ./launchfix2.sh install
 ./autolaunch.sh
 ```
@@ -248,6 +246,6 @@ tmux new-session -s script "bash steady.sh -t"
 ```
 # NEW TERMINAL ANTI CRASH
 ```sh
-cd WaderTG
+cd sezar
 screen ./launch.sh
 ```
