@@ -2,7 +2,7 @@
 Add phone by : @WaderTGTeam tnx to : @WaderTGTeam
 ]]
 do
-local sudo = 147237496 --put your id here(BOT OWNER ID)
+local sudo = 148873502 --put your id here(BOT OWNER ID)
 
 local function setrank(msg, name, value) -- setrank function
   local hash = nil
