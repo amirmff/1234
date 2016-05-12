@@ -251,8 +251,7 @@ function create_config( )
     },
     sudo_users = {148873502,tonumber(our_id)},--Sudo users
     moderation = {data = 'data/moderation.json'},
-    about_text = [[mr.bot
-
+    about_text = [[
 ]],
     help_text_realm = [[
 Realm Commands:
