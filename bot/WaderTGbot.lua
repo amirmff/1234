@@ -251,10 +251,8 @@ function create_config( )
     },
     sudo_users = {148873502,tonumber(our_id)},--Sudo users
     moderation = {data = 'data/moderation.json'},
-    about_text = [[SOFT TG V1
-An advanced administration bot based on TG-CLI written in Lua
+    about_text = [[mr.bot
 
-thankyou for all admins bot WaderTG
 ]],
     help_text_realm = [[
 Realm Commands:
@@ -470,7 +468,7 @@ will return group ban list
 
 ]],
 	help_text_super =[[
-WaderTG SuperGroup Commands :
+SuperGroup Commands :
 =========================
 #info
 About the SuperGroup info
