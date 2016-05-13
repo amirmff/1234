@@ -235,7 +235,7 @@ function create_config( )
 	"plugins",
 	"badword",
 	"bot-lock",
-	"clash_of_clan",
+	"music",
 	"cleaner",
 	"infull",
 	"instagram",
@@ -616,9 +616,6 @@ clear[text]from list badword
 =========================
 #clearbadwords
 Cleaned badword list
-=========================
-#clantag[tag]
-Specifications clan a door clsh of clan
 =========================
 #music[truk name]
 Find songs to
