@@ -235,7 +235,6 @@ function create_config( )
 	"plugins",
 	"badword",
 	"bot-lock",
-	"music",
 	"cleaner",
 	"infull",
 	"instagram",
@@ -616,9 +615,6 @@ clear[text]from list badword
 =========================
 #clearbadwords
 Cleaned badword list
-=========================
-#music[truk name]
-Find songs to
 =========================
 #me
 Returns your specifications
