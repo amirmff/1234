@@ -35,7 +35,7 @@ NONVOLUNTARYCHECK=0
 VOLUNTARY=1
 VOLUNTARYCHECK=0
 I=1
-BOT=Mr.bot  # You can put here other bots. Also you can change it to run more than one bot in the same server.
+BOT=sezar  # You can put here other bots. Also you can change it to run more than one bot in the same server.
 RELOADTIME=10  # Time between checking cpu calls of the cli process. Set the value high if your bot does not receive lots of messages.
 
 
@@ -492,7 +492,7 @@ while getopts ":tsTSih" opt; do
 	i)
 	echo -e "\e[1m"
 	echo -e ""
-	echo "steady.sh bash script v1.2 iicc 2016 WaderTG" >&2
+	echo "steady.sh bash script v1.2 iicc 2016 sezar" >&2
 	echo ""
 	exit 1
       ;;
