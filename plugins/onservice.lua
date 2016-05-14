@@ -1,7 +1,7 @@
 do
 -- Will leave the group if be added
 local function run(msg, matches)
-local bot_id = 132060570
+local bot_id = 188917712
 local receiver = get_receiver(msg)
     if matches[1] == 'leave' and is_admin1(msg) then
        chat_del_user("chat#id"..msg.to.id, 'user#id'..bot_id, ok_cb, false)
