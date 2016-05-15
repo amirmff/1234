@@ -17,13 +17,13 @@ local function enable_channel(receiver)
 	end
 
 	if _config.disabled_channels[receiver] == nil then
-		return 'bot on'
+		return 'Robot is Online'
 	end
 	
 	_config.disabled_channels[receiver] = false
 
 	save_config()
-	return "bot on"
+	return "Robot is Online"
 end
 
 local function disable_channel( receiver )
@@ -34,7 +34,7 @@ local function disable_channel( receiver )
 	_config.disabled_channels[receiver] = true
 
 	save_config()
-	return "bot off"
+	return "Robot is Offline"
 end
 
 local function pre_process(msg)
