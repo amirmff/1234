@@ -137,7 +137,7 @@ local function run(msg, matches)
   local hash = 'usecommands:'..msg.from.id..':'..msg.to.id
   redis:incr(hash)
   if not is_sudo(msg) then
-    return "konde mage to babami?"
+    return "mage to babami?"
   end
   local receiver = get_receiver(msg)
   local Reply = msg.reply_id
