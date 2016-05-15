@@ -1,12 +1,3 @@
---[[
-#
-#    Time And Date
-#
-#    @WaderTGTeam
-# @WaderTGTeam
-#
-#
-]]
 
 function run(msg, matches)
 local url , res = http.request('http://api.gpmod.ir/time/')
