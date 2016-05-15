@@ -262,7 +262,7 @@ end
 		receiver = get_receiver(msg)
 		reload_plugins(true)
 		post_msg(receiver, "Reloaded!", ok_cb, false)
-		return "Reloaded WaderTG All Plugins !"
+		return "Reloaded All Plugins !"
 	end
 	--[[*For Debug*
 	if matches[1] == "vardumpmsg" and is_admin1(msg) then
@@ -275,7 +275,7 @@ end
 		if not long_id then
 			data[tostring(msg.to.id)]['long_id'] = msg.to.peer_id 
 			save_data(_config.moderation.data, data)
-			return "Updated ID WaderTG"
+			return "Updated ID"
 		end
 	end
 	if matches[1] == 'addlog' and not matches[2] then
