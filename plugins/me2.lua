@@ -1,3 +1,4 @@
+
 local function checktodaygr(cb_extra, success, result)
 	local hash = ''
 	local thash=''
