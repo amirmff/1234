@@ -9,7 +9,7 @@ local filename='data/expire.lua'
    local arr = { origin,  text } ;
    table.insert(cronned[date], arr)
    serialize_to_file(cronned, filename)
-   return 'ذخيره شد'
+   return 'ذخیره شد'
  end
  
  local function delete_cron(date)
@@ -24,7 +24,7 @@ local filename='data/expire.lua'
  local function cron()
    for date, values in pairs(cronned) do
    	if date < os.time() then --time's up
- 	  	send_msg(values[1][1], "مدت زمان گروه شما به اتمام رسيد"..values[1][2], ok_cb, false)
+ 	  	send_msg(values[1][1], "مدت زمان گروه شما به اتمام رسید"..values[1][2], ok_cb, false)
    		delete_cron(date) 
  	end
  
@@ -36,7 +36,7 @@ local filename='data/expire.lua'
    	return "Usage: !remind [delay: 2h3m1s] text"
    end
    save_cron(msg, text,delay)
-   return "time expried group" .. os.date("%x at %H:%M:%S",delay) .. " adjusted \n\ndescription\n" .. text .. "'"
+   return "مدت زمان انقضای گروه به" .. os.date("%x at %H:%M:%S",delay) .. " تنظیم شد \n\nتوضیحات\n" .. text .. "'"
  end
  
  local function run(msg, matches)
@@ -64,11 +64,10 @@ local filename='data/expire.lua'
  return {
  
    patterns = {
-     "^[!/#](expire) ([0-9]+[hmsdHMSD]) (.+)$",   --- e.g : for a month enter : 720hms - then , in text enter gp id and admin id 
-     "^[!/#](expire) ([0-9]+[hmsdHMSD])([0-9]+[hmsdHMSD]) (.+)$",
-     "^[!/#](expire) ([0-9]+[hmsdHMSD])([0-9]+[hmsdHMSD])([0-9]+[hmsdHMSD]) (.+)$"
+     "^[!/](expire) ([0-9]+[hmsdHMSD]) (.+)$",   --- e.g : for a month enter : 720hms - then , in text enter gp id and admin id 
+     "^[!/](expire) ([0-9]+[hmsdHMSD])([0-9]+[hmsdHMSD]) (.+)$",
+     "^[!/](expire) ([0-9]+[hmsdHMSD])([0-9]+[hmsdHMSD])([0-9]+[hmsdHMSD]) (.+)$"
    }, 
    run = run,
    cron = cron
  }
- 
