@@ -20,7 +20,7 @@ end
 
 return {
 	patterns = {
-		"^[#/!]([Ss](how)) (.+)$",
+		"^[#/!][Ss](how) (.+)$",
     }, 
 	run = run,
 	}
