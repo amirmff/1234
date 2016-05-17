@@ -1,17 +1,3 @@
---[[
-
-        @cruel نویسنده
-		@cruel_channel
-		@gpmod
-
-
-
-]]--
-
-
-
-
-
 do
 local function view_sura(chat_id, target)
 	local f = io.open("./plugins/("..target..").lua","r")
@@ -39,16 +25,3 @@ return {
 	run = run,
 	}
 end
-
-
---[[
-
-        @cruel نویسنده
-		@cruel_channel
-		@gpmod
-
-
-
-]]--
-
-
