@@ -118,7 +118,7 @@ if is_chat_msg(msg) or is_super_group(msg) then
 		end
 	end
 end
-return msg
+	return msg
 end
 --End pre_process function
 return {
