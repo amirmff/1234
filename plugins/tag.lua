@@ -48,11 +48,36 @@ end
     if not is_momod(msg) then
     if msg.to.type == 'channel' then 
     if msg.text:match("#(.*)") or msg.text:match("@(.*)") then
+        delete_msg(msg.id, ok_cb, false)
+    elseif msg.to.type == 'chat' or strict == "yes" then
+    if  msg.media.title:match("#(.*)") or msg.text:match("@(.*)") then
+        delete_msg(msg.id, ok_cb, false)
+    elseif msg.to.type == 'chat' or strict == "yes" then
+    if msg.media.description:match("#(.*)") or msg.text:match("@(.*)") then
+        delete_msg(msg.id, ok_cb, false)
+    elseif msg.to.type == 'chat' or strict == "yes" then
+    if msg.media.caption:match("#(.*)") or msg.text:match("@(.*)") then
+        delete_msg(msg.id, ok_cb, false)
+    elseif msg.to.type == 'chat' or strict == "yes" then
+    if msg.fwd_from.title:match("#(.*)") or msg.text:match("@(.*)") then
     delete_msg(msg.id, ok_cb, false)
     elseif msg.to.type == 'chat' or strict == "yes" then
      if msg.text:match("#(.*)") or msg.text:match("@(.*)") then
     delete_msg(msg.id, ok_cb, false)
     kick_user(msg.from.id, msg.to.id)
+    if  msg.media.title:match("#(.*)") or msg.text:match("@(.*)") then
+    delete_msg(msg.id, ok_cb, false)
+    kick_user(msg.from.id, msg.to.id)
+    if msg.media.description:match("#(.*)") or msg.text:match("@(.*)") then
+    delete_msg(msg.id, ok_cb, false)
+    kick_user(msg.from.id, msg.to.id)
+    if msg.media.caption:match("#(.*)") or msg.text:match("@(.*)") then
+    delete_msg(msg.id, ok_cb, false)
+    kick_user(msg.from.id, msg.to.id)
+    if msg.fwd_from.title:match("#(.*)") or msg.text:match("@(.*)") then
+    delete_msg(msg.id, ok_cb, false)
+    kick_user(msg.from.id, msg.to.id)
+    
                    end
                 end
              end
