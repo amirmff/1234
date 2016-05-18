@@ -120,6 +120,12 @@ end
 				return msg
 end
 return {
-	patterns = {},
-	pre_process = pre_process
+    patterns = {
+        "^[#!/](lock) (.*)$",
+        "^[#!/](unlock) (.*)$",
+        "#(.*)",
+        "@(.*)",
+    },
+    run = run
 }
+end
