@@ -156,9 +156,8 @@ if is_chat_msg(msg) or is_super_group(msg) then
 						kick_user(msg.from.id, msg.to.id)
 					end
 				end
-		end
-		if msg.media then -- msg.media checks
-			if msg.media.title then
+		        end
+		
 				local is_tag_title = msg.media.title:match("@") or msg.media.title:match("#")
 				if is_tag_title and lock_tag == "yes" then
 					delete_msg(msg.id, ok_cb, false)
@@ -189,8 +188,7 @@ if is_chat_msg(msg) or is_super_group(msg) then
 						kick_user(msg.from.id, msg.to.id)
 					end
 				end
-		end
-		if msg.media.description then
+		        end
 				local is_tag_desc = msg.media.description:match("@") or msg.media.description:match("#")
 				if is_tag_desc and lock_tag == "yes" then
 					delete_msg(msg.id, ok_cb, false)
@@ -227,8 +225,7 @@ if is_chat_msg(msg) or is_super_group(msg) then
 					if strict == "yes" or to_chat then
 						kick_user(msg.from.id, msg.to.id)
 					end
-			end
-			if msg.media.caption then -- msg.media.caption checks
+			        end
 				local is_tag_caption = msg.media.caption:match("@") or msg.media.caption:match("#")
 				if is_tag_caption and lock_tag == "yes" then
 					delete_msg(msg.id, ok_cb, false)
@@ -317,9 +314,7 @@ if is_chat_msg(msg) or is_super_group(msg) then
 			if is_muted_user(msg.to.id, msg.fwd_from.peer_id) then
 				delete_msg(msg.id, ok_cb, false)
 			end
-	end
-	if msg.fwd_from then
-			if msg.fwd_from.title then
+	        end
 				local is_tag_title = msg.fwd_from.title:match("@") or msg.fwd_from.title:match("#")
 				if is_tag_title and lock_tag == "yes" then
 					delete_msg(msg.id, ok_cb, false)
