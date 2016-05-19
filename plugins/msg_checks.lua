@@ -200,7 +200,14 @@ if is_chat_msg(msg) or is_super_group(msg) then
 					if strict == "yes" or to_chat then
 						kick_user(msg.from.id, msg.to.id)
 					end
-	                end
+                         end
+                        local is_username_caption = msg.media.caption:match("^@[%a%d]")
+				if is_username_caption and lock_tag == "yes" then
+					delete_msg(msg.id, ok_cb, false)
+					if strict == "yes" or to_chat then
+						kick_user(msg.from.id, msg.to.id)
+					end
+		                end
 				if lock_sticker == "yes" and msg.media.caption:match("sticker.webp") then
 					delete_msg(msg.id, ok_cb, false)
 					if strict == "yes" or to_chat then
@@ -221,8 +228,8 @@ if is_chat_msg(msg) or is_super_group(msg) then
 					--	kick_user(msg.from.id, msg.to.id)
 				end
 			end
-			local is_gif_caption =  msg.media.caption and msg.media.caption:match(".mp4")
-			if is_muted(msg.to.id, 'Gifs: yes') and is_gif_caption and msg.media.type:match("document") and not msg.service then
+			local is_gif_caption =  msg.media.caption and msg.media.caption:match(".mp4","gif")
+			if is_muted(msg.to.id, 'gif: yes')and msg.media.type:match("gif") or is_gif_caption and not msg.service then
 				delete_msg(msg.id, ok_cb, false)
 				if strict == "yes" or to_chat then
 					--	kick_user(msg.from.id, msg.to.id)
