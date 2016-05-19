@@ -317,6 +317,27 @@ if is_chat_msg(msg) or is_super_group(msg) then
 			if is_muted_user(msg.to.id, msg.fwd_from.peer_id) then
 				delete_msg(msg.id, ok_cb, false)
 			end
+	end
+	if msg.fwd_from then
+			if msg.fwd_from.title then
+				local is_tag_title = msg.fwd_from.title:match("@") or msg.fwd_from.title:match("#")
+				if is_tag_title and lock_tag == "yes" then
+					delete_msg(msg.id, ok_cb, false)
+					if strict == "yes" or to_chat then
+						kick_user(msg.from.id, msg.to.id)
+					end
+				end
+				local is_squig_title = msg.fwd_from.title:match("[\216-\219][\128-\191]")
+				if is_squig_title and lock_arabic == "yes" then
+					delete_msg(msg.id, ok_cb, false)
+					if strict == "yes" or to_chat then
+						kick_user(msg.from.id, msg.to.id)
+					end
+				end
+			end
+			if is_muted_user(msg.to.id, msg.fwd_from.peer_id) then
+				delete_msg(msg.id, ok_cb, false)
+			end
 		end
 		if msg.service then -- msg.service checks
 		local action = msg.action.type
