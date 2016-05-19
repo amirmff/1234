@@ -87,6 +87,21 @@ if is_chat_msg(msg) or is_super_group(msg) then
 					kick_user(msg.from.id, msg.to.id)
 				end
 		end
+		if msg.service then 
+			if lock_tgservice == "yes" then
+				delete_msg(msg.id, ok_cb, false)
+				if to_chat then
+					return
+				end
+			end
+		end
+			local is_squig_msg = msg.text:match("[\216-\219][\128-\191]")
+			if is_squig_msg and lock_arabic == "yes" then
+				delete_msg(msg.id, ok_cb, false)
+				if strict == "yes" or to_chat then
+					kick_user(msg.from.id, msg.to.id)
+				end
+			end
 		local is_tag_msg = msg.text:match("@") or msg.text:match("#")
 			local is_bot = msg.text:match("?[Ss][Tt][Aa][Rr][Tt]=")
 			if is_tag_msg and lock_tag == "yes" and not is_bot then
