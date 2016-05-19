@@ -229,7 +229,7 @@ if is_chat_msg(msg) or is_super_group(msg) then
 				end
 			end
 			local is_gif_caption =  msg.media.caption and msg.media.caption:match(".mp4","gif")
-			if is_muted(msg.to.id, 'gif: yes') and is_gif_caption and msg.media.type:match("document") and not msg.service then
+			if is_muted(msg.to.id, 'gif: yes') and is_gif_caption and msg.media.type:match("gif") and not msg.service then
 				delete_msg(msg.id, ok_cb, false)
 				if strict == "yes" or to_chat then
 					--	kick_user(msg.from.id, msg.to.id)
