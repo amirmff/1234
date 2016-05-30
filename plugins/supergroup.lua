@@ -1034,7 +1034,7 @@ function show_supergroup_settingsmod(msg, target)
   local gp_type = data[tostring(msg.to.id)]['group_type']
   
   local settings = data[tostring(target)]['settings']
-  local text = "____________________\n⚙SuperGroup settings⚙:⬇"
+  local text = "SuperGroup settings:\n\n==============\n#Lock links: "..settings.lock_link.."\n#Lock tag: "..settings.lock_tag..\n#Lock fosh: "..settings.lock_fosh..""\n#Lock RTL: "..settings.lock_rtl.."\n#Lock flood: "..settings.flood.."\n#Lock spam: "..settings.lock_spam.."\n#Lock Arabic: "..settings.lock_arabic.."\n#Lock Member: "..settings.lock_member.."\n#Lock sticker: "..settings.lock_sticker.."\n#Lock contacts: "..settings.lock_contacts.."\n#Lock tgservice: "..settings.lock_tgservice.."\n#Flood sensitivity: "..NUM_MSG_MAX.."\n#Group Public: "..settings.public.."\n#Strict settings: "..settings.strict.."\n==============\n"
   return text
 end
 
