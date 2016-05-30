@@ -1548,7 +1548,7 @@ local function run(msg, matches)
 		if not data[tostring(msg.to.id)] then
 			return
 		end
-		if matches[1] == "gpinfo" then
+		if matches[1] == "info" then
 			if not is_owner(msg) then
 				return
 			end
