@@ -68,8 +68,8 @@ end
 return {
   description = 'Anti bot',
   usage = {
-    '/lock bot: locked add bots to supergroup',
-    '/unlock bot: unlock add bots to supergroup'
+    '[/!#]lock bot: locked add bots to supergroup',
+    '[/!#]unlock bot: unlock add bots to supergroup'
   },
   patterns = {
     '^[/!#](lock) bot$',
