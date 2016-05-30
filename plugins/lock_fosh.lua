@@ -34,6 +34,7 @@ return {
 	"گوساله",
 	"gosale",
 	"gusale",
+	"خر",
   },
   run = run
 }
