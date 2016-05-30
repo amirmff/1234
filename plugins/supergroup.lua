@@ -29,6 +29,7 @@ local function check_member_super(cb_extra, success, result)
 		  lock_rtl = 'no',
 		  lock_tgservice = 'yes',
 		  lock_contacts = 'no',
+		  fosh = 'no',
 		  strict = 'no'
         }
       }
