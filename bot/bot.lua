@@ -468,7 +468,7 @@ will return group ban list
 	help_text_super =[[
 SuperGroup Commands :
 =========================
-#info
+#gpinfo
 About the SuperGroup info
 =========================
 #infull
@@ -557,10 +557,10 @@ Send SuperGroup link private
 #rules
 Chat the rules
 =========================
-#lock[links+flood+spam+arabic+member+rtl+sticker+contacts+strict+tgservice+forward]
+#lock[links+flood+spam+arabic+member+rtl+sticker+contacts+strict+tgservice+forward+fosh+operator]
 Lock SuperGroup settings
 =========================
-#unlock[links+flood+spam+arabic+member+rtl+sticker+contacts+strict+tgservice+forward]
+#unlock[links+flood+spam+arabic+member+rtl+sticker+contacts+strict+tgservice+forward+fosh+operator]
 Unlock SuperGroup settings
 =========================
 #mute[all+audio+gifs+photo+video+text+service]
@@ -572,7 +572,7 @@ Unmute SuperGroup massage types
 #setflood[value]
 Set[value] as flood sensitivity
 =========================
-#settins
+#settings
 SuperGroup settings
 =========================
 #muteslist
@@ -582,7 +582,7 @@ SuperGroup mutes
 Mute a user in SuperGroup
 +#muteuser[@username+id]remove mutelist+
 =========================
-#mutelist
+#muteslist
 SuperGroup muted user list
 =========================
 #banlist
