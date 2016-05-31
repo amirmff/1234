@@ -20,7 +20,7 @@ local function check_member_super(cb_extra, success, result)
           set_name = string.gsub(msg.to.title, '_', ' '),
 		  lock_arabic = 'no',
 		  lock_link = "no",
-                  flood = 'yes',
+          flood = 'yes',
 		  lock_spam = 'yes',
 		  lock_sticker = 'no',
 		  member = 'no',
@@ -228,6 +228,35 @@ local function unlock_group_all(msg, data, target)
     return 'all setting has been unlocked'
   end
 end
+
+local function lock_group_etehad(msg, data, target)
+  if not is_momod(msg) then
+    return
+  end
+  local group_etehad_lock = data[tostring(target)]['settings']['etehad']
+  if group_etehad_lock == 'yes' then
+    return 'etehad setting is already locked'
+  else
+    data[tostring(target)]['settings']['etehad'] = 'yes'
+    save_data(_config.moderation.data, data)
+    return 'etehad setting has been locked'
+  end
+end
+
+local function unlock_group_etehad(msg, data, target)
+  if not is_momod(msg) then
+    return
+  end
+  local group_etehad_lock = data[tostring(target)]['settings']['etehad']
+  if group_etehad_lock == 'no' then
+    return 'etehad setting is not locked'
+  else
+    data[tostring(target)]['settings']['etehad'] = 'no'
+    save_data(_config.moderation.data, data)
+    return 'etehad setting has been unlocked'
+  end
+end
+
 local function lock_group_leave(msg, data, target)
   if not is_momod(msg) then
     return
@@ -749,6 +778,35 @@ local function unlock_group_sticker(msg, data, target)
     return 'Sticker posting has been unlocked'
   end
 end
+
+local function lock_group_bots(msg, data, target)
+  if not is_momod(msg) then
+    return 
+  end
+  local group_bots_lock = data[tostring(target)]['settings']['lock_bots']
+  if group_bots_lock == 'yes' then
+    return 'Bots protection is already enabled'
+  else
+    data[tostring(target)]['settings']['lock_bots'] = 'yes'
+    save_data(_config.moderation.data, data)
+    return 'Bots protection has been enabled'
+  end
+end
+
+local function unlock_group_bots(msg, data, target)
+  if not is_momod(msg) then
+    return 
+  end
+  local group_bots_lock = data[tostring(target)]['settings']['lock_bots']
+  if group_bots_lock == 'no' then
+    return 'Bots protection is already disabled'
+  else
+    data[tostring(target)]['settings']['lock_bots'] = 'no'
+    save_data(_config.moderation.data, data)
+    return 'Bots protection has been disabled'
+  end
+end
+
 local function lock_group_contacts(msg, data, target)
   if not is_momod(msg) then
     return
@@ -881,8 +939,12 @@ function show_supergroup_settingsmod(msg, target)
         	print('custom'..NUM_MSG_MAX)
       	else
         	NUM_MSG_MAX = 5
-       	end
+      	end
     end
+    local bots_protection = "Yes"
+    if data[tostring(target)]['settings']['lock_bots'] then
+    	bots_protection = data[tostring(target)]['settings']['lock_bots']
+   	end
 	if data[tostring(target)]['settings'] then
 		if not data[tostring(target)]['settings']['public'] then
 			data[tostring(target)]['settings']['public'] = 'no'
@@ -963,10 +1025,15 @@ function show_supergroup_settingsmod(msg, target)
 			data[tostring(target)]['settings']['operator'] = 'no'
 		end
 	end
+	if data[tostring(target)]['settings'] then
+		if not data[tostring(target)]['settings']['etehad'] then
+			data[tostring(target)]['settings']['etehad'] = 'no'
+		end
+	end
   local gp_type = data[tostring(msg.to.id)]['group_type']
   
   local settings = data[tostring(target)]['settings']
-  local text = "\n⚙SuperGroup settings⚙:️\n>Lock links : "..settings.lock_link.."\n>Lock contacts: "..settings.lock_contacts.."\n>Lock flood: "..settings.flood.."\n>Flood sensitivity : "..NUM_MSG_MAX.."\n>Lock spam: "..settings.lock_spam.."\n>Lock Arabic: "..settings.lock_arabic.."\n>Lock Member: "..settings.lock_member.."\n>Lock RTL: "..settings.lock_rtl.."\n>Lock Tgservice: "..settings.lock_tgservice.."\n>Lock sticker: "..settings.lock_sticker.."\n>Lock tag: "..settings.tag.."\n>Lock media: "..settings.media.."\n>Lock fosh: "..settings.fosh.."\n>Lock bots: "..bots_protection.."\n>Lock operator: "..settings.operator.."\n>Group Public: "..settings.public.."\n>Strict settings: "..settings.strict.."
+  local text = "____________________\n⚙SuperGroup settings⚙:⬇️\n____________________\n>Lock links : "..settings.lock_link.."\n>Lock contacts: "..settings.lock_contacts.."\n>Lock flood: "..settings.flood.."\n>Flood sensitivity : "..NUM_MSG_MAX.."\n>Lock spam: "..settings.lock_spam.."\n>Lock Arabic: "..settings.lock_arabic.."\n>Lock Member: "..settings.lock_member.."\n>Lock RTL: "..settings.lock_rtl.."\n>Lock Tgservice: "..settings.lock_tgservice.."\n>Lock sticker: "..settings.lock_sticker.."\n>Lock tag(#): "..settings.tag.."\n>Lock emoji: "..settings.emoji.."\n>Lock english: "..settings.english.."\n>Lock fwd(forward): "..settings.fwd.."\n>Lock reply: "..settings.reply.."\n>Lock join: "..settings.join.."\n>Lock username(@): "..settings.username.."\n>Lock media: "..settings.media.."\n>Lock fosh: "..settings.fosh.."\n>Lock leave: "..settings.leave.."\n>Lock bots: "..bots_protection.."\n>Lock operator: "..settings.operator.."\n____________________\n⚙Easy Sweet&Faster Switch⚙:⬇️\n____________________\n>Switch Model Etehad: "..settings.etehad.."\n>Lock all: "..settings.all.."\n____________________\nℹ️About Groupℹ️:⬇️\n____________________\n>group type: "..gp_type.."\n>Public: "..settings.public.."\n>Strict settings: "..settings.strict.."\n____________________\n>>bot version : v2.9<<\n>>>👑MeGa shield👑<<<\n>>@shieldTM<<"
   return text
 end
 
@@ -1548,7 +1615,7 @@ local function run(msg, matches)
 		if not data[tostring(msg.to.id)] then
 			return
 		end
-		if matches[1] == "info" then
+		if matches[1] == "gpinfo" then
 			if not is_owner(msg) then
 				return
 			end
@@ -2068,6 +2135,7 @@ local function run(msg, matches)
 		lock_group_fosh(msg, data, target),
 		lock_group_media(msg, data, target),
 		lock_group_leave(msg, data, target),
+		lock_group_bots(msg, data, target),
 		lock_group_operator(msg, data, target),
       	}
       	return lock_group_all(msg, data, target), safemode
@@ -2093,6 +2161,7 @@ local function run(msg, matches)
 		lock_group_fosh(msg, data, target),
 		unlock_group_media(msg, data, target),
 		lock_group_leave(msg, data, target),
+		lock_group_bots(msg, data, target),
 		unlock_group_operator(msg, data, target),
       	}
       	return lock_group_etehad(msg, data, target), etehad
@@ -2177,6 +2246,10 @@ local function run(msg, matches)
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked leave")
 				return lock_group_leave(msg, data, target)
 			end
+			if matches[2] == 'bots' then
+				savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked bots")
+				return lock_group_bots(msg, data, target)
+			end
 			if matches[2] == 'operator' then
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked operator")
 				return lock_group_operator(msg, data, target)
@@ -2206,6 +2279,7 @@ local function run(msg, matches)
 		unlock_group_fosh(msg, data, target),
 		unlock_group_media(msg, data, target),
 		unlock_group_leave(msg, data, target),
+		unlock_group_bots(msg, data, target),
 		unlock_group_operator(msg, data, target),
       	}
       	return unlock_group_all(msg, data, target), dsafemode
@@ -2231,6 +2305,7 @@ local function run(msg, matches)
 		unlock_group_fosh(msg, data, target),
 		unlock_group_media(msg, data, target),
 		unlock_group_leave(msg, data, target),
+		unlock_group_bots(msg, data, target),
 		unlock_group_operator(msg, data, target),
       	}
       	return unlock_group_etehad(msg, data, target), detehad
@@ -2314,6 +2389,10 @@ local function run(msg, matches)
 			if matches[2] == 'leave' then
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked leave")
 				return unlock_group_leave(msg, data, target)
+			end
+			if matches[2] == 'bots' then
+				savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked bots")
+				return unlock_group_bots(msg, data, target)
 			end
 			if matches[2] == 'operator' then
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked operator")
@@ -2619,7 +2698,7 @@ return {
 	"^[#!/]([Aa]dd)$",
 	"^[#!/]([Rr]em)$",
 	"^[#!/]([Mm]ove) (.*)$",
-	"^[#!/]([Ii]nfo)$",
+	"^[#!/]([Gg]pinfo)$",
 	"^[#!/]([Aa]dmins)$",
 	"^[#!/]([Oo]wner)$",
 	"^[#!/]([Mm]odlist)$",
