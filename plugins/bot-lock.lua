@@ -1,3 +1,36 @@
+local function isAntiBotEnabled (chatId)
+  local hash = 'bot:lock:'..chatId
+  local lock = redis:get(hash)
+  return lock
+end
+local function enableAntiBot (chatId)
+local hash = 'bot:lock:'..chatId
+redis:set(hash, true)
+end
+local function disableAntiBot (chatId)
+local hash = 'bot:lock:'..chatId
+redis:del(hash)
+end
+local function isABot (user)
+  local binFlagIsBot = 4096
+  local result = bit32.band(user.flags, binFlagIsBot)
+  return result == binFlagIsBot
+end
+
+local function isABotBadWay (user)
+  local username = user.username or ''
+  return username:match("[Bb]ot$")
+end
+local function kickUser(userId, chatId)
+local channel = 'channel#id'..chatId
+local user = 'user#id'..userId
+  channel_kick_user(channel, user, function (data, success, result)
+    if success ~= 1 then
+      print('I can\'t kick '..data.user..' but should be kicked')
+    end
+  end, {chat=chat, user=user})
+end
+
 local function run (msg, matches)
 
   if matches[1] ~= 'chat_add_user' and matches[1] ~= 'chat_add_user_link' then
@@ -35,14 +68,17 @@ end
 return {
   description = 'Anti bot',
   usage = {
-    '[/!#]lock bot: locked add bots to supergroup',
-    '[/!#]unlock bot: unlock add bots to supergroup'
+    '/bot lock: locked add bots to supergroup',
+    '/bot unlock: unlock add bots to supergroup'
   },
   patterns = {
-    '^[/!#](lock) bot$',
-    '^[/!#](unlock) bot$',
+    '^/bot (lock)$',
+    '^/bot (unlock)$',
     '^!!tgservice (chat_add_user)$',
     '^!!tgservice (chat_add_user_link)$'
   },
   run = run
 }
+
+--shared by @WaderTGTeam
+--by @WaderTG
