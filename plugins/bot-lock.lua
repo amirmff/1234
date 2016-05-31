@@ -46,8 +46,3 @@ return {
   },
   run = run
 }
-
---shared by @WaderTGTeam
---by @WaderTG
-Status API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Securit
