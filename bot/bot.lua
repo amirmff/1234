@@ -490,10 +490,10 @@ Send SuperGroup link private
 #rules
 Chat the rules
 ======================
-#lock[links+flood+spam+arabic+member+rtl+sticker+contacts+strict+tgservice+forward]
+#lock[links+tag+flood+spam+arabic+member+rtl+sticker+contacts+strict+tgservice+forward+media+fosh+operator]
 Lock SuperGroup settings
 ======================
-#unlock[links+flood+spam+arabic+member+rtl+sticker+contacts+strict+tgservice+forward]
+#unlock[links+tag+flood+spam+arabic+member+rtl+sticker+contacts+strict+tgservice+forward+media+fosh+operator]
 Unlock SuperGroup settings
 ======================
 #mute[all+audio+gifs+photo+video+text+service]
