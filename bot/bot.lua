@@ -250,7 +250,13 @@ function create_config( )
     },
     sudo_users = {148873502,tonumber(our_id)},--Sudo users
     moderation = {data = 'data/moderation.json'},
-    about_text = [[
+    about_text = [[sezar.bot v3.1
+    Admins:
+    @Erfan_1292
+    
+    
+    Our channels:
+    @sezar_team
 ]],
     help_text_realm = [[
 Realm Commands:
