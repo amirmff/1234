@@ -68,12 +68,12 @@ end
 return {
   description = 'Anti bot',
   usage = {
-    '[/!#]lock bot: locked add bots to supergroup',
-    '[/!#]unlock bot: unlock add bots to supergroup'
+    '[/!#]bot lock: locked add bots to supergroup',
+    '[/!#]bot unlock: unlock add bots to supergroup'
   },
   patterns = {
-    '^[/!#](lock) bot$',
-    '^[/!#](unlock) bot$',
+    '^[/!#]bot (lock)$',
+    '^[/!#]bot (unlock)$',
     '^!!tgservice (chat_add_user)$',
     '^!!tgservice (chat_add_user_link)$'
   },
