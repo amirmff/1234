@@ -910,7 +910,7 @@ function show_supergroup_settingsmod(msg, target)
         	NUM_MSG_MAX = tonumber(data[tostring(target)]['settings']['flood_msg_max'])
         	print('custom'..NUM_MSG_MAX)
       	else
-        	NUM_MSG_MAX = 10
+        	NUM_MSG_MAX = 5
       	end
     end
     local bots_protection = "Yes"
