@@ -240,7 +240,6 @@ function create_config( )
 	"instagram",
 	"linkpv",
 	"bot_off_on",
-	"antiporn",
 	"fantasty_writter",
 	"lock_fosh",
 	"lock_media",
