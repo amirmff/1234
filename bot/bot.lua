@@ -521,13 +521,6 @@ SuperGroup settings
 #muteslist
 SuperGroup mutes
 ======================
-#muteuser[@username+id]
-Mute a user in SuperGroup
-+#muteuser[@username+id]remove mutelist+
-======================
-#muteslist
-SuperGroup muted user list
-======================
 #banlist
 SuperGroup ban list
 ======================
