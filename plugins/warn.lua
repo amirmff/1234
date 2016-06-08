@@ -10,66 +10,6 @@
 # -- warn members on reply
 # -- return, if is_admin or is_momod
 # -- admins can warn owners and moderators
-
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-# Version: 2016-03-01
-#
-# Features :
-# -- warn members on reply
-# -- return, if is_admin or is_momod
-# -- admins can warn owners and moderators
-#
-]]
-local function warn_by_username(extra, success, result) -- /warn <@username>
-  if success == 1 then  
-  local msg = result
-  local target = extra.target
-  local receiver = extra.receiver 
-  local hash = 'warn:'..target
-  local value = redis:hget(hash, msg.id)
-  local text = ''
-  local name = ''
-  if msg.first_name then
-   name = string.sub(msg.first_name, 1, 40)
-  else
-   name = string.sub(msg.last_name, 1, 40)
-  end
-----------------------------------
-  if is_momod2(msg.id, target) and not is_admin2(extra.fromid) then
-  return send_msg(receiver, 'شما نمیتوانید به مدیر گروه اخطار بدهید!', ok_cb, false) end
---endif--
-  if is_admin2(msg.id) then return send_msg(receiver, 'شما نمیتوانید به ادمین ربات اخطار بدهید!', ok_cb, false) end
---endif--
-
 #
 ]]
 
@@ -176,7 +116,7 @@ local function unwarn_by_username(extra, success, result) -- /unwarn <@username>
 --endif--
   if value then
   redis:hdel(hash, msg.id, '0')
-  text = 'اخطار های این کاربر پاک شد'
+  text = 'تعداد اخطار های این کاربر پاک شد'
   else
    text = 'این کاربر اخطاری دریافت نکرده است'
   end
@@ -203,7 +143,7 @@ local function unwarn_by_reply(extra, success, result) -- (on reply) /unwarn
 --endif--
   if value then
   redis:hdel(hash, msg.from.id, '0')
-  text =  'اخطار های این کاربر پاک شد'
+  text = 'تعداد اخطار های این کاربر پاک شد'
   else
    text = 'این کاربر اخطاری دریافت نکرده است'
   end
