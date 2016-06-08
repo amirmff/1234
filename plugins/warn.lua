@@ -1,3 +1,18 @@
+--[[
+#
+# Warn Members inchat Plugin
+#
+# author: Arian < @Dragon_Born > 
+# our channel: @GPMod
+# Version: 2016-03-01
+#
+# Features :
+# -- warn members on reply
+# -- return, if is_admin or is_momod
+# -- admins can warn owners and moderators
+#
+]]
+
 local function warn_by_username(extra, success, result) -- /warn <@username>
   if success == 1 then  
   local msg = result
