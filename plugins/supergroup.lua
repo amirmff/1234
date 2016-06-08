@@ -513,11 +513,11 @@ local function lock_group_tag(msg, data, target)
   if not is_momod(msg) then
     return
   end
-  local group_tag_lock = data[tostring(target)]['settings']['tag']
+  local group_tag_lock = data[tostring(target)]['settings']['lock_tag']
   if group_tag_lock == 'yes' then
     return 'tag is already locked'
   else
-    data[tostring(target)]['settings']['tag'] = 'yes'
+    data[tostring(target)]['settings']['lock_tag'] = 'yes'
     save_data(_config.moderation.data, data)
     return 'tag has been locked'
   end
@@ -527,11 +527,11 @@ local function unlock_group_tag(msg, data, target)
   if not is_momod(msg) then
     return
   end
-  local group_tag_lock = data[tostring(target)]['settings']['tag']
+  local group_tag_lock = data[tostring(target)]['settings']['lock_tag']
   if group_tag_lock == 'no' then
     return 'tag is not locked'
   else
-    data[tostring(target)]['settings']['tag'] = 'no'
+    data[tostring(target)]['settings']['lock_tag'] = 'no'
     save_data(_config.moderation.data, data)
     return 'tag has been unlocked'
   end
@@ -933,8 +933,8 @@ function show_supergroup_settingsmod(msg, target)
 		end
 	end
 	  if data[tostring(target)]['settings'] then
-		if not data[tostring(target)]['settings']['tag'] then
-			data[tostring(target)]['settings']['tag'] = 'no'
+		if not data[tostring(target)]['settings']['lock_tag'] then
+			data[tostring(target)]['settings']['lock_tag'] = 'no'
 		end
 	end
 	  if data[tostring(target)]['settings'] then
