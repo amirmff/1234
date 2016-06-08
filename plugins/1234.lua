@@ -305,6 +305,7 @@ To show office user
 ======================
 #voice[text]
 Text-to-voice
+lppl5541655pl
 ======================
 *Only from markes "!" , "/" , "#" use*
 ]],
