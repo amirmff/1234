@@ -218,9 +218,9 @@ if msg.from.phone then
 	  local value = redis:hget(hash, msg.from.id)
 	  if not value then
 		if msg.from.id == tonumber(Arian) then
-		 text = text..'مقام : <code>Executive Admin</code> \n\n'
+		 text = text..'مقام : Executive Admin \n\n'
 		 elseif msg.from.id == tonumber(Sosha) then
-		 text = text..'مقام : <code>Full Access Admin</code> \n\n'
+		 text = text..'مقام : Full Access Admin \n\n'
 		elseif is_admin1(msg) then
 		 text = text..'مقام : ادمین \n\n'
 		elseif is_owner(msg) then
