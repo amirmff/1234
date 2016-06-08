@@ -20,7 +20,6 @@ end
 return {
   patterns = {
 "%[(photo)%]",
-"%[(document)%]",
 "%[(video)%]",
 "%[(audio)%]",
 "%[(unsupported)%]",
