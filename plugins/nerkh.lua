@@ -2,7 +2,6 @@ do
 
 function run(msg, matches)
   return [[
-نرخ گروه های سایه
 لیست قیمت ها:
 🔸سوپر گپ 1ماه  3هزار تومان
 🔸سوپر گپ سه ماهه 7 هزار تومان
@@ -17,7 +16,7 @@ return {
   description = "shows sudoers", 
   usage = "!sudoers : return sudousers",
   patterns = {
-    "^[Nn]erkh$",
+    "^[#!/][Nn]erkh$",
 
   },
   run = run
