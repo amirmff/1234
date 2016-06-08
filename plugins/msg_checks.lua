@@ -34,7 +34,7 @@ if is_chat_msg(msg) or is_super_group(msg) then
 		lock_link = 'no'
 	end
 	if settings.lock_tag then
-		lock_tag = settings.lock_tag
+		lock_tag = settings.tag
 	else
 		lock_tag = 'no'
 	end
@@ -89,7 +89,7 @@ if is_chat_msg(msg) or is_super_group(msg) then
 		end
 		local is_tag_msg = msg.text:match("@") or msg.text:match("#")
 			local is_bot = msg.text:match("?[Ss][Tt][Aa][Rr][Tt]=")
-			if is_tag_msg and lock_tag == "yes" and not is_bot then
+			if is_tag_msg and tag == "yes" and not is_bot then
 				delete_msg(msg.id, ok_cb, false)
 				if strict == "yes" or to_chat then
 					kick_user(msg.from.id, msg.to.id)
@@ -135,7 +135,7 @@ if is_chat_msg(msg) or is_super_group(msg) then
 					end
 			end
 			local is_tag_title = msg.media.title:match("@") or msg.media.title:match("#")
-				if is_tag_title and lock_tag == "yes" then
+				if is_tag_title and tag == "yes" then
 					delete_msg(msg.id, ok_cb, false)
 					if strict == "yes" or to_chat then
 						kick_user(msg.from.id, msg.to.id)
@@ -181,7 +181,7 @@ if is_chat_msg(msg) or is_super_group(msg) then
 					end
 			end
 			local is_tag_caption = msg.media.caption:match("@") or msg.media.caption:match("#")
-				if is_tag_caption and lock_tag == "yes" then
+				if is_tag_caption and tag == "yes" then
 					delete_msg(msg.id, ok_cb, false)
 					if strict == "yes" or to_chat then
 						kick_user(msg.from.id, msg.to.id)
@@ -265,7 +265,7 @@ if is_chat_msg(msg) or is_super_group(msg) then
 					end
 			end
 			local is_tag_title = msg.fwd_from.title:match("@") or msg.fwd_from.title:match("#")
-				if is_tag_title and lock_tag == "yes" then
+				if is_tag_title and tag == "yes" then
 					delete_msg(msg.id, ok_cb, false)
 					if strict == "yes" or to_chat then
 						kick_user(msg.from.id, msg.to.id)
