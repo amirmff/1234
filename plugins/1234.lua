@@ -179,8 +179,8 @@ return {
     "show the bot help",
   },
   patterns = {
-    "^[!#/]([Ss]ocial)$",
-    "^[!#/]([Ss]ocialhelp)$",
+    "^[!#/]([Hh]elp)$",
+    "^[!#/]([Hh]elp)$",
   }, 
   run = run,
 }
