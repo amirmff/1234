@@ -1,5 +1,5 @@
 do
-local SUDO = 176619893 --
+local SUDO = 148873502 --
 
 local function setrank(msg, name, value) -- setrank function
   local hash = nil
