@@ -28,7 +28,7 @@ TeleSeed has several commands that are only usable at certain ranks.
 | Command | Description |
 |:--------|:------------|
 | [#!/]id | Returns group/SuperGroup ID or user id in pm. |
-| [#!/]teleseed | Returns bot information. |
+| [#!/]sezar | Returns bot information. |
 
 
 ## Private Message Commands {#privmsg_commands}
