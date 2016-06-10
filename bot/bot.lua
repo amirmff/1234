@@ -244,7 +244,6 @@ function create_config( )
 	"lock_fosh",
 	"lock_media",
 	"lock_operator",
-	"lock_tag",
 	"rmsg",
 	"show_plugin",
 	"activeuser",
