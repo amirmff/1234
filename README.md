@@ -229,8 +229,8 @@ sudo apt-get upgrade -y
 sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev lua-socket lua-sec lua-expat libevent-dev make unzip git redis-server autoconf g++ libjansson-dev libpython-dev expat libexpat1-dev
 
 cd $HOME
-git clone https://github.com/erfan1292/sezar.git
-cd sezar
+git clone https://github.com/erfan1292/1234.git
+cd 1234
 chmod +x launchfix2.sh
 chmod +x launch.sh
 chmod +x autolaunch.sh
@@ -241,7 +241,7 @@ cd bin
 ./luarocks-5.2 install lub
 ./luarocks-5.2 install luaexpat
 cd $HOME
-cd sezar
+cd 1234
 ./launchfix2.sh install
 ./autolaunch.sh
 ```
@@ -251,6 +251,6 @@ tmux new-session -s script "bash steady.sh -t"
 ```
 # NEW TERMINAL ANTI CRASH
 ```sh
-cd sezar
+cd 1234
 screen ./launch.sh
 ```
