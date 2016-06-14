@@ -9,7 +9,7 @@ end
 
 return {
 patterns = {
-"^[/][Tt](ime)$",
+"^[Tt](ime)$",
 },
 run = run
 }
