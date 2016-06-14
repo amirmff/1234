@@ -9,7 +9,6 @@ end
  
 return {
   patterns = {
-    "^time"
-  }, 
+   {"^[#/!]([Tt][iI][Mm][Ee])$"},
   run = run 
 }
