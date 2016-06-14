@@ -213,10 +213,10 @@ local function show_group_settingsmod(msg, data, target)
    	end
     local leave_ban = "no"
     if data[tostring(msg.to.id)]['settings']['leave_ban'] then
-    	leave_ban = data[tostring(msg.to.id)]['settings']['leave_ban']
+    	leave_ban = data[tostring(msg.to.id)]['settings']['leave']
    	end
   local settings = data[tostring(target)]['settings']
-  local text = "⚙ Group Settings :\n› Lock group name : "..settings.lock_name.."\n›Lock group photo : "..settings.lock_photo.."\n›Lock group tag : "..settings.lock_tag.."\n›Lock group member : "..settings.lock_member.."\n›Lock group English : "..settings.lock_eng.."\n›Lock group leave : "..settings.leave_ban.."\n›Lock group arabic : "..settings.lock_arabic.."\n›Lock group fosh : "..settings.lock_fosh.."\n›Lock group share : "..settings.lock_share.."\n›Lock group chat : "..settings.lock_chat.."\n›Lock group gif : "..settings.lock_gif.."\n›Lock group emogi : "..settings.lock_emogi.."\n›Lock group media : "..settings.lock_media.."\n›Lock group badword : "..settings.lock_badw.."\n›Lock group links : "..settings.lock_link.."\n›Lock group persian : "..settings.lock_fa.."\n›Lock group join : "..settings.lock_join.."\n›Flood Sensitivity : "..NUM_MSG_MAX.."\n›Bot Protection : "..bots_protection.."\nVersion : V1"
+  local text = "⚙ Group Settings :\n› Lock group name : "..settings.lock_name.."\n›Lock group photo : "..settings.lock_photo.."\n›Lock group tag : "..settings.lock_tag.."\n›Lock group member : "..settings.lock_member.."\n›Lock group English : "..settings.lock_eng.."\n›Lock group leave : "..settings.leave.."\n›Lock group arabic : "..settings.lock_arabic.."\n›Lock group fosh : "..settings.fosh.."\n›Lock group share : "..settings.lock_share.."\n›Lock group chat : "..settings.lock_chat.."\n›Lock group gif : "..settings.lock_gif.."\n›Lock group emogi : "..settings.lock_emogi.."\n›Lock group media : "..settings.lock_media.."\n›Lock group links : "..settings.lock_link.."\n›Lock group join : "..settings.lock_join.."\n›Flood Sensitivity : "..NUM_MSG_MAX.."\n›Bot Protection : "..bots_protection.."\n"
   return text
 end
 
@@ -353,7 +353,7 @@ local function lock_group_sticker(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_sticker_lock = data[tostring(target)]['settings']['sticker']
+  local group_sticker_lock = data[tostring(target)]['settings']['lock_sticker']
   if group_sticker_lock == 'kick' then
     return 'Sticker protection is already enabled!'
   else
@@ -367,7 +367,7 @@ local function unlock_group_sticker(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_sticker_lock = data[tostring(target)]['settings']['sticker']
+  local group_sticker_lock = data[tostring(target)]['settings']['lock_sticker']
   if group_sticker_lock == 'ok' then
     return 'Sticker protection is already disabled!'
   else
@@ -629,7 +629,7 @@ local function lock_group_fosh(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_fosh_lock = data[tostring(target)]['settings']['lock_fosh']
+  local group_fosh_lock = data[tostring(target)]['settings']['fosh']
   if group_fosh_lock == 'yes' then
     return 'fosh is already locked!'
   else
@@ -643,7 +643,7 @@ local function unlock_group_fosh(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_fosh_lock = data[tostring(target)]['settings']['lock_fosh']
+  local group_fosh_lock = data[tostring(target)]['settings']['fosh']
   if group_fosh_lock == 'no' then
     return 'fosh is already unlocked!'
   else
@@ -656,7 +656,7 @@ local function lock_group_fosh(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_fosh_lock = data[tostring(target)]['settings']['lock_fosh']
+  local group_fosh_lock = data[tostring(target)]['settings']['fosh']
   if group_fosh_lock == 'yes' then
     return 'fosh is already locked!'
   else
@@ -670,7 +670,7 @@ local function unlock_group_fosh(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_fosh_lock = data[tostring(target)]['settings']['lock_fosh']
+  local group_fosh_lock = data[tostring(target)]['settings']['fosh']
   if group_fosh_lock == 'no' then
     return 'fosh is already unlocked!'
   else
@@ -767,7 +767,7 @@ local function lock_group_join(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local adds_ban = data[tostring(msg.to.id)]['settings']['lock_join']
+  local adds_ban = data[tostring(msg.to.id)]['settings']['join']
   if adds_ban == 'yes' then
     return 'join by link has been locked!'
   else
@@ -781,7 +781,7 @@ local function unlock_group_join(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local adds_ban = data[tostring(msg.to.id)]['settings']['lock_join']
+  local adds_ban = data[tostring(msg.to.id)]['settings']['join']
   if adds_ban == 'no' then
     return 'join by link hes been unlocked!'
   else
@@ -950,7 +950,7 @@ local function lock_group_leave(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local leave_ban = data[tostring(msg.to.id)]['settings']['leave_ban']
+  local leave_ban = data[tostring(msg.to.id)]['settings']['leave']
   if leave_ban == 'yes' then
     return 'Leaving users will be banned'
   else
@@ -964,7 +964,7 @@ local function unlock_group_leave(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local leave_ban = data[tostring(msg.to.id)]['settings']['leave_ban']
+  local leave_ban = data[tostring(msg.to.id)]['settings']['leave']
   if leave_ban == 'no' then
     return 'Leaving users will not be banned'
   else
