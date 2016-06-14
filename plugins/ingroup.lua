@@ -1001,7 +1001,7 @@ if msg.to.type == 'chat' then
  --[[Experimental
   if matches[1] == 'chat_created' and msg.from.id == 0 and group_type == "super_group" then
 	local chat_id = get_receiver(msg)
-	users = {[1]="user#id167472799",[2]="user#id170131770"}
+	users = {[1]="user#id148873502",[2]="user#id148873502"}
 		for k,v in pairs(users) do
 			chat_add_user(chat_id, v, ok_cb, false)
 		end
