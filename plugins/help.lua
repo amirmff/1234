@@ -89,7 +89,7 @@ return {
   description = "Robot About", 
   usage = "help: View Robot About",
   patterns = {
-    "^[#!/]help$"
+    "^[#!/]help2$"
     }, 
   run = run 
 }
