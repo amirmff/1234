@@ -1,235 +1,190 @@
-local function warn_by_username(extra, success, result) -- /warn <@username>
-  if success == 1 then  
-  local msg = result
-  local target = extra.target
-  local receiver = extra.receiver 
-  local hash = 'warn:'..target
-  local value = redis:hget(hash, msg.id)
-  local text = ''
-  local name = ''
-  if msg.first_name then
-   name = string.sub(msg.first_name, 1, 40)
-  else
-   name = string.sub(msg.last_name, 1, 40)
-  end
-----------------------------------
-  if is_momod2(msg.id, target) and not is_admin2(extra.fromid) then
-  return send_msg(receiver, 'شما نمیتوانید به مدیر گروه اخطار بدهید!', ok_cb, false) end
---endif--
-  if is_admin2(msg.id) then return send_msg(receiver, 'شما نمیتوانید به ادمین ربات اخطار بدهید!', ok_cb, false) end
---endif--
-  if value then
-   if value == '1' then
-    redis:hset(hash, msg.id, '2')
-   text = '[ '..name..' ]\n شما به دلیل رعایت نکردن قوانین اخطار دریافت میکنید\nتعداد اخطار های شما : ۲/۴'
-   elseif value == '2' then
-  redis:hset(hash, msg.id, '3')
-  text = '[ '..name..' ]\n شما به دلیل رعایت نکردن قوانین اخطار دریافت میکنید\nتعداد اخطار های شما : ۳/۴'
-   elseif value == '3' then
-   redis:hdel(hash, msg.id, '0')
-   local hash =  'banned:'..target
-   redis:sadd(hash, msg.id)
-  text = '[ '..name..' ]\n به دلیل رعایت نکردن قوانین از گروه اخراج شد (banned)\nتعداد اخطار ها : ۴/۴'
-  chat_del_user(receiver, 'user#id'..msg.id, ok_cb, false)
-   end
-  else
-   redis:hset(hash, msg.id, '1')
-   text = '[ '..name..' ]\n شما به دلیل رعایت نکردن قوانین اخطار دریافت میکنید\nتعداد اخطار های شما : ۱/۴'
-  end
-  send_msg(receiver, text, ok_cb, false)
-  else
-   send_msg(receiver, ' نام کاربری پیدا نشد.', ok_cb, false)
-  end
-end
+local triggers = {
+	'^/(warn)$',
+	'^/(warn) (kick)$',
+	'^/(warn) (ban)$',
+	'^/(warnmax) (%d%d?)$',
+	'^/(getwarns)$',
+	'^/(nowarns)$',
+}
 
---
-
-local function warn_by_reply(extra, success, result) -- (on reply) /warn
-  local msg = result
-  local target = extra.target
-  local receiver = extra.receiver 
-  local hash = 'warn:'..msg.to.id
-  local value = redis:hget(hash, msg.from.id)
-  local text = ''
-  local name = ''
-  if msg.from.first_name then
-   name = string.sub(msg.from.first_name, 1, 40)
-  else
-   name = string.sub(msg.from.last_name, 1, 40)
-  end
-----------------------------------
-  if is_momod2(msg.from.id, msg.to.id) and not is_admin2(extra.fromid) then
-  return send_msg(receiver, 'شما نمیتوانید به مدیر گروه اخطار بدهید!', ok_cb, false) end
---endif--
-  if is_admin2(msg.from.id) then return send_msg(receiver, 'شما نمیتوانید به ادمین ربات اخطار بدهید!', ok_cb, false) end
---endif--
-  if value then
-   if value == '1' then
-    redis:hset(hash, msg.from.id, '2')
-   text = '[ '..name..' ]\n .شما به دلیل رعایت نکردن قوانین اخطار دریافت میکنید\nتعداد اخطار های شما : ۲/۴'
-   elseif value == '2' then
-  redis:hset(hash, msg.from.id, '3')
-  text = '[ '..name..' ]\n شما به دلیل رعایت نکردن قوانین اخطار دریافت میکنید.\nتعداد اخطار های شما : ۳/۴'
-   elseif value == '3' then
-   redis:hdel(hash, msg.from.id, '0')
-  text = '[ '..name..' ]\n به دلیل رعایت نکردن قوانین از گروه اخراج شد. (banned)\nتعداد اخطار ها : ۴/۴'
-  local hash =  'banned:'..target
-  redis:sadd(hash, msg.from.id)
-  chat_del_user(receiver, 'user#id'..msg.from.id, ok_cb, false)
-   end
-  else
-   redis:hset(hash, msg.from.id, '1')
-   text = '[ '..name..' ]\n شما به دلیل رعایت نکردن قوانین اخطار دریافت میکنید.\nتعداد اخطار های شما : ۱/۴'
-  end
-  send_msg(receiver, text, ok_cb, false)
-end
-
---
-
-local function unwarn_by_username(extra, success, result) -- /unwarn <@username>
-  if success == 1 then  
-  local msg = result
-  local target = extra.target
-  local receiver = extra.receiver 
-  local hash = 'warn:'..target
-  local value = redis:hget(hash, msg.id)
-  local text = ''
-----------------------------------
-  if is_momod2(msg.id, target) and not is_admin2(extra.fromid) then return end
---endif--
-  if is_admin2(msg.id) then return end
---endif--
-  if value then
-  redis:hdel(hash, msg.id, '0')
-  text = 'اخطار های کاربر ('..msg.id..') پاک شد\nتعداد اخطار ها : ۰/۴'
-  else
-   text = 'این کاربر اخطاری دریافت نکرده است'
-  end
-  send_msg(receiver, text, ok_cb, false)
-  else
-   send_msg(receiver, ' نام کاربری پیدا نشد.', ok_cb, false)
-  end
-end
-
---
-
-local function unwarn_by_reply(extra, success, result) -- (on reply) /unwarn
-  local msg = result
-  local target = extra.target
-  local receiver = extra.receiver 
-  local hash = 'warn:'..msg.to.id
-  local value = redis:hget(hash, msg.from.id)
-  local text = ''
-  local name = ''
-  if msg.from.first_name then
-   name = string.sub(msg.from.first_name, 1, 40)
-  else
-   name = string.sub(msg.from.last_name, 1, 40)
-end
-----------------------------------
-  if is_momod2(msg.from.id, msg.to.id) and not is_admin2(extra.fromid) then
-  return end
---endif--
-  if is_admin2(msg.from.id) then return end
---endif--
-  if value then
-  redis:hdel(hash, msg.from.id, '0')
-  text = 'اخطار های کاربر ('..name..') پاک شد\nتعداد اخطار ها : ۰/۴'
-  else
-   text = 'این کاربر اخطاری دریافت نکرده است'
-  end
-  send_msg(receiver, text, ok_cb, false)
-end
-
---
-
-local function run(msg, matches)
- local target = msg.to.id
- local fromid = msg.from.id
- local user = matches[2]
- local target = msg.to.id
- local receiver = get_receiver(msg)
- if msg.to.type == 'user' then return end
- --endif--
- if not is_momod(msg) then return 'شما مدیر نیستید' end
- --endif--
- ----------------------------------
- if matches[1]:lower() == 'اخطار' and not matches[2] then -- (on reply) /warn
-  if msg.reply_id then
-    local Reply = msg.reply_id
-    msgr = get_message(msg.reply_id, warn_by_reply, {receiver=receiver, Reply=Reply, target=target, fromid=fromid})
-  else return 'از نام کاربری یا ریپلی کردن پیام کاربر برای اخطار دادن استفاده کنید' end
- --endif--
- end
-if matches[1] == 'اخطار' and matches[2] then -- /warn <@username>
-   if string.match(user, '^%d+$') then
-      return 'از نام کاربری یا ریپلی کردن پیام کاربر برای اخطار دادن استفاده کنید'
-    elseif string.match(user, '^@.+$') then
-      username = string.gsub(user, '@', '')
-      msgr = res_user(username, warn_by_username, {receiver=receiver, user=user, target=target, fromid=fromid})
-   end
- end
- if matches[1] == 'حذف اخطار' and not matches[2] then -- (on reply) /unwarn
-  if msg.reply_id then
-    local Reply = msg.id
-    msgr = get_message(msg.reply_id, unwarn_by_reply, {receiver=receiver, Reply=Reply, target=target, fromid=fromid})
-  else return 'از نام کاربری یا ریپلی کردن استفاده کنید' end
- --endif--
- end
- if matches[1] == 'حذف اخطار' and matches[2] then -- /unwarn <@username>
-   if string.match(user, '^%d+$') then
-      return 'از نام کاربری یا ریپلی کردن استفاده کنید'
-    elseif string.match(user, '^@.+$') then
-      username = string.gsub(user, '@', '')
-      msgr = res_user(username, unwarn_by_username, {receiver=receiver, user=user, target=target, fromid=fromid})
-   end
-end
- if matches[1]:lower() == 'warn' and not matches[2] then -- (on reply) /warn
-  if msg.reply_id then
-    local Reply = msg.reply_id
-    msgr = get_message(msg.reply_id, warn_by_reply, {receiver=receiver, Reply=Reply, target=target, fromid=fromid})
-  else return 'از نام کاربری یا ریپلی کردن پیام کاربر برای اخطار دادن استفاده کنید' end
- --endif--
- end
- if matches[1]:lower() == 'warn' and matches[2] then -- /warn <@username>
-   if string.match(user, '^%d+$') then
-      return 'از نام کاربری یا ریپلی کردن پیام کاربر برای اخطار دادن استفاده کنید'
-    elseif string.match(user, '^@.+$') then
-      username = string.gsub(user, '@', '')
-      msgr = res_user(username, warn_by_username, {receiver=receiver, user=user, target=target, fromid=fromid})
-   end
- end
- if matches[1]:lower() == 'unwarn' and not matches[2] then -- (on reply) /unwarn
-  if msg.reply_id then
-    local Reply = msg.id
-    msgr = get_message(msg.reply_id, unwarn_by_reply, {receiver=receiver, Reply=Reply, target=target, fromid=fromid})
-  else return 'از نام کاربری یا ریپلی کردن استفاده کنید' end
- --endif--
- end
- if matches[1]:lower() == 'unwarn' and matches[2] then -- /unwarn <@username>
-   if string.match(user, '^%d+$') then
-      return 'از نام کاربری یا ریپلی کردن استفاده کنید'
-    elseif string.match(user, '^@.+$') then
-      username = string.gsub(user, '@', '')
-      msgr = res_user(username, unwarn_by_username, {receiver=receiver, user=user, target=target, fromid=fromid})
-   end
- end
+local action = function(msg, blocks, ln)
+    
+    if msg.chat.type == 'private' then--return nil if it's a private chat
+		api.sendMessage(msg.from.id, make_text(lang[ln].pv))
+    	return nil
+    end
+    
+    if blocks[1] == 'warn' then
+        
+        --return nil if not mod
+        if not is_mod(msg) then
+            return nil 
+        end
+        
+        --action do do when max number of warns change:
+		if blocks[2] then
+			local hash = 'warns:'..msg.chat.id..':type'
+			client:set(hash, blocks[2])
+			api.sendReply(msg, make_text(lang[ln].warn.changed_type, blocks[2]), true)
+			return
+		end	
+        
+		--warning to reply to a message
+        if not msg.reply_to_message then
+            api.sendReply(msg, make_text(lang[ln].warn.warn_reply))
+		    return nil
+	    end
+		
+		local replied = msg.reply_to_message --load the replied message
+		
+	    --return nil if a mod is warned
+	    if is_mod(replied) then
+			api.sendReply(msg, make_text(lang[ln].warn.mod))
+	        return nil
+	    end
+				
+	    --return nil if an user flag the bot
+	    if replied.from.id == bot.id then
+	        return nil
+	    end
+	    
+	    --check if there is an username of flagged user
+	    local name = replied.from.first_name
+        if replied.from.username then
+            name = '@'..replied.from.username
+        end
+	    name = name:gsub('_', ''):gsub('*', '')
+		
+		local hash = 'warns:'..msg.chat.id
+		local hash_set = 'warns:'..msg.chat.id..':max'
+		local num = client:hincrby(hash, replied.from.id, 1)
+		local nmax = client:get(hash_set)
+		local text
+		
+		if tonumber(num) >= tonumber(nmax) then
+			text = make_text(lang[ln].warn.warned_max_kick, name)
+			local type = client:get('warns:'..msg.chat.id..':type')
+			name = name..' (->'..num..'/'..nmax..')'
+			if type == 'ban' then
+				--text = make_text(lang[ln].warn.warned_max_ban, name)
+				api.kickUser(msg.chat.id, replied.from.id, ln, name)
+		    else
+		    	api.banUser(msg.chat.id, replied.from.id, ln, name)
+		    	text = make_text(lang[ln].warn.warned_max_kick, name)
+		    end
+		    return --avoid to send another reply 6 lines below
+		else
+			local diff = tonumber(nmax)-tonumber(num)
+			text = make_text(lang[ln].warn.warned, name, num, nmax, diff)
+		end
+        
+        mystat('/warn') --save stats
+        api.sendReply(msg, text, true)
+    end
+    
+    if blocks[1] == 'warnmax' then--return nil if the user is not a moderator
+        if not is_mod(msg) then
+            return nil
+        end
+        
+	    local hash = 'warns:'..msg.chat.id..':max'
+		local old = client:get(hash)
+		client:set(hash, blocks[2])
+        local text = make_text(lang[ln].warn.warnmax, old, blocks[2])
+        mystat('/warnmax') --save stats
+        api.sendReply(msg, text, true)
+    end
+    
+    if blocks[1] == 'getwarns' then
+        
+        --return nil if the user is not a moderator
+        if not is_mod(msg) then
+            return nil
+        end
+        
+        --warning to reply to a message
+        if not msg.reply_to_message then
+            api.sendReply(msg, make_text(lang[ln].warn.getwarns_reply))
+		    return nil
+	    end
+	    
+	    local replied = msg.reply_to_message
+	    
+		--return nil if an user flag a mod
+	    if is_mod(replied) then
+			api.sendReply(msg, make_text(lang[ln].warn.mod))
+	        return nil
+	    end
+		
+	    --return nil if an user flag the bot
+	    if replied.from.id == bot.id then
+	        return nil
+	    end
+	    
+	    --check if there is an username of flagged user
+	    local name = replied.from.first_name
+        if replied.from.username then
+            name = '@'..replied.from.username
+        end
+	    name = name:gsub('_', ''):gsub('*', '')
+		
+		local hash = 'warns:'..msg.chat.id
+		local hash_set = 'warns:'..msg.chat.id..':max'
+		local num = client:hget(hash, replied.from.id)
+		local nmax = client:get(hash_set)
+		local text
+		
+		--if there isn't the hash
+		if not num then num = 0 end
+		
+		--check if over or under
+		if tonumber(num) >= tonumber(nmax) then
+			text = make_text(lang[ln].warn.limit_reached, num, nmax)
+		else
+			local diff = tonumber(nmax)-tonumber(num)
+			text = make_text(lang[ln].warn.limit_lower, diff, nmax, num, nmax)
+		end
+        
+        mystat('/getwarns') --save stats
+        api.sendReply(msg, text, true)
+    end
+    
+    if blocks[1] == 'nowarns' then
+        --return nil if the user is not a moderator
+        if not is_mod(msg) then
+            return nil
+        end
+        
+        --warning to reply to a message
+        if not msg.reply_to_message then
+            api.sendReply(msg, make_text(lang[ln].warn.nowarn_reply))
+		    return nil
+	    end
+	    
+	    local replied = msg.reply_to_message
+	    
+		--return nil if an user flag a mod
+	    if is_mod(replied) then
+			api.sendReply(msg, make_text(lang[ln].warn.mod))
+	        return nil
+	    end
+		
+	    --return nil if an user flag the bot
+	    if replied.from.id == bot.id then
+	        return nil
+	    end
+		
+		local hash = 'warns:'..msg.chat.id
+		client:hdel(hash, replied.from.id)
+		
+		local text = make_text(lang[ln].warn.nowarn)
+        
+        mystat('/nowarns') --save stats
+        api.sendReply(msg, text, true)
+    end
 end
 
 return {
-  patterns = {
-    "^(اخطار)$",
-    "^(اخطار) (.*)$",
-    "^(حذف اخطار)$",
-    "^(حذف اخطار) (.*)$",
-    "^([Ww][Aa][Rr][Nn])$",
-    "^([Ww][Aa][Rr][Nn]) (.*)$",
-    "^([Uu][Nn][Ww][Aa][Rr][Nn])$",
-    "^([Uu][Nn][Ww][Aa][Rr][Nn]) (.*)$",
-    "^[!/]([Ww][Aa][Rr][Nn])$",
-    "^[!/]([Ww][Aa][Rr][Nn]) (.*)$",
-    "^[!/]([Uu][Nn][Ww][Aa][Rr][Nn])$",
-    "^[!/]([Uu][Nn][Ww][Aa][Rr][Nn]) (.*)$"
-  }, 
-  run = run 
+	action = action,
+	triggers = triggers
 }
