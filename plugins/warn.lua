@@ -30,7 +30,6 @@ local function warn_by_username(extra, success, result) -- /warn <@username>
    local hash =  'banned:'..target
    redis:sadd(hash, msg.id)
   text = '[ '..name..' ]\n به دلیل رعایت نکردن قوانین از گروه اخراج شد (banned)\nتعداد اخطار ها : ۴/۴'
-  else
   local hash =  'banned:'..target
   redis:sadd(hash, msg.from.id)
   chat_del_user(receiver, 'user#id'..msg.from.id, ok_cb, false)
@@ -76,7 +75,6 @@ local function warn_by_reply(extra, success, result) -- (on reply) /warn
    elseif value == '3' then
    redis:hdel(hash, msg.from.id, '0')
   text = '[ '..name..' ]\n به دلیل رعایت نکردن قوانین از گروه اخراج شد. (banned)\nتعداد اخطار ها : ۴/۴'
-  else
   local hash =  'banned:'..target
   redis:sadd(hash, msg.from.id)
   chat_del_user(receiver, 'user#id'..msg.from.id, ok_cb, false)
