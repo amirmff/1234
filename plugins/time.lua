@@ -1,15 +1,11 @@
-local function run(msg, matches)
-if matches[1] == 'time' then
-    local cmd = io.popen('curl http://api.magic-team.ir/time.php')
-      local result = cmd:read('*all')
-    cmd:close()
-    return result
+function run(msg, matches)
+local url , res = http.request('http://api.gpmod.ir/time/')
+if res ~= 200 then return "No connection" end
+local jdat = json:decode(url)
+local text = '>>Time: '..jdat.FAtime..' \n>>Today: '..jdat.FAdate..'\n------------------\n>> '..jdat.ENtime..'\n>> '..jdat.ENdate.. '\n------------------\n'
+return text
 end
-end
-
 return {
-patterns = {
-"^[/#!][Tt](ime)$",
-},
-run = run
+  patterns = {"^[#/!]([Tt][iI][Mm][Ee])$"}, 
+run = run 
 }
