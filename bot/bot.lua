@@ -266,7 +266,7 @@ function create_config( )
     Our channels:
     @sezar_team
 ]],
-
+ }
   serialize_to_file(config, './data/config.lua')
   print('saved config into ./data/config.lua')
 end
