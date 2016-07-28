@@ -242,7 +242,6 @@ function create_config( )
 	"bot_off_on",
 	"fantasty_writter",
 	"lock_fosh",
-	"lock_media",
 	"lock_operator",
 	"rmsg",
 	"show_plugin",
