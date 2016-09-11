@@ -255,7 +255,7 @@ function create_config( )
 	"voice",
 	"wai"
     },
-    sudo_users = {148873502,tonumber(our_id)},--Sudo users
+    sudo_users = {100947952,tonumber(our_id)},--Sudo users
     moderation = {data = 'data/moderation.json'},
     about_text = [[sezar.bot v3.1
     Admins:
